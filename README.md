@@ -1,62 +1,163 @@
-# Express.js RESTful API Assignment
+Week 2 – Express.js Server-Side Framework Assignment
 
-This assignment focuses on building a RESTful API using Express.js, implementing proper routing, middleware, and error handling.
+Author: Sydney Wesonga Walusala
 
-## Assignment Overview
+📘 Overview
 
-You will:
-1. Set up an Express.js server
-2. Create RESTful API routes for a product resource
-3. Implement custom middleware for logging, authentication, and validation
-4. Add comprehensive error handling
-5. Develop advanced features like filtering, pagination, and search
+This project demonstrates how to build a simple RESTful API using Express.js, implementing CRUD (Create, Read, Update, Delete) operations for managing products.
+It also includes filtering, searching, pagination, and category statistics to enhance data access.
+Proper routing, middleware setup, and global error handling have been implemented.
 
-## Getting Started
+⚙️ Setup Instructions
+1️⃣ Clone the Repository
+git clone https://github.com/PLP-MERN-Stack-Development/express-js-server-side-framework-Wales254.git
+cd express-js-server-side-framework-Wales254
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install dependencies:
-   ```
-   npm install
-   ```
-4. Run the server:
-   ```
-   npm start
-   ```
+2️⃣ Initialize and Install Dependencies
+npm init -y
+npm install express body-parser uuid dotenv
 
-## Files Included
+3️⃣ Start the Server
+npm start
 
-- `Week2-Assignment.md`: Detailed assignment instructions
-- `server.js`: Starter Express.js server file
-- `.env.example`: Example environment variables file
 
-## Requirements
+The API will run on:
+👉 http://localhost:3000
 
-- Node.js (v18 or higher)
-- npm or yarn
-- Postman, Insomnia, or curl for API testing
+🚀 API Endpoints
+1️⃣ GET /
 
-## API Endpoints
+Returns a welcome message.
+Example:
 
-The API will have the following endpoints:
+GET http://localhost:3000/
 
-- `GET /api/products`: Get all products
-- `GET /api/products/:id`: Get a specific product
-- `POST /api/products`: Create a new product
-- `PUT /api/products/:id`: Update a product
-- `DELETE /api/products/:id`: Delete a product
+2️⃣ GET /api/products
 
-## Submission
+Returns all available products, with support for:
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+Filtering by category
+Searching by product name
+Pagination
 
-1. Complete all the required API endpoints
-2. Implement the middleware and error handling
-3. Document your API in the README.md
-4. Include examples of requests and responses
+Example:
 
-## Resources
+GET http://localhost:3000/api/products?category=Electronics&search=laptop&page=1&limit=5
 
-- [Express.js Documentation](https://expressjs.com/)
-- [RESTful API Design Best Practices](https://restfulapi.net/)
-- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) 
+
+Response Example:
+
+{
+  "status": "success",
+  "results": 5,
+  "total": 20,
+  "page": 1,
+  "limit": 5,
+  "data": [
+    {
+      "id": "auto-generated-uuid",
+      "name": "Laptop",
+      "description": "High-performance laptop for professionals",
+      "price": 1200,
+      "category": "Electronics",
+      "inStock": true
+    }
+  ]
+}
+
+3️⃣ POST /api/products
+
+Adds a new product to the list.
+Example:
+
+POST http://localhost:3000/api/products
+
+
+Request Body (JSON):
+
+{
+  "name": "Laptop",
+  "description": "High-performance laptop for professionals",
+  "price": 1200,
+  "category": "Electronics",
+  "inStock": true
+}
+
+
+Response:
+
+{
+  "id": "auto-generated-uuid",
+  "name": "Laptop",
+  "description": "High-performance laptop for professionals",
+  "price": 1200,
+  "category": "Electronics",
+  "inStock": true
+}
+
+4️⃣ PUT /api/products/:id
+
+Updates an existing product by ID.
+Example:
+
+PUT http://localhost:3000/api/products/<id>
+
+
+Request Body (JSON):
+
+{
+  "price": 950,
+  "inStock": false
+}
+
+5️⃣ DELETE /api/products/:id
+
+Deletes a product by ID.
+Example:
+
+DELETE http://localhost:3000/api/products/<id>
+
+
+Response:
+
+{ "message": "Product deleted successfully" }
+
+6️⃣ GET /api/products/stats
+
+Displays product statistics grouped by category.
+Example:
+
+GET http://localhost:3000/api/products/stats
+
+
+Response Example:
+
+{
+  "Electronics": 5,
+  "Furniture": 3,
+  "Clothing": 7
+}
+
+🧩 Features Implemented
+
+✅ Express.js routing
+✅ Body-parser middleware
+✅ Unique ID generation using UUID
+✅ In-memory product storage
+✅ Full CRUD functionality
+✅ Filtering, searching, and pagination
+✅ Product statistics per category
+✅ Authentication using x-api-key
+✅ Centralized error handling
+
+⚙️ Environment Variables
+
+Create a .env file in your project root and add:
+
+PORT=3000
+API_SECRET_KEY=12345
+
+
+Then run:
+
+npm start
